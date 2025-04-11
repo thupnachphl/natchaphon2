@@ -1,0 +1,29 @@
+function confirmOrder() {
+    let name = document.getElementById("name").value;
+    let phone = document.getElementById("phone").value;
+    let address = document.getElementById("address").value;
+
+    if (!name || !phone || !address) {
+        alert("กรุณากรอกข้อมูลให้ครบ!");
+        return;
+    }
+
+    if (cart.length === 0) {
+        alert("กรุณาเลือกสินค้าใส่ตะกร้าก่อนสั่งซื้อ");
+        return;
+    }
+
+    let orderDetails = `📦 ชื่อ: ${name}\n📞 เบอร์: ${phone}\n🏠 ที่อยู่: ${address}\n\n📋 รายการสินค้า:\n`;
+    cart.forEach(item => {
+        orderDetails += `- ${item.name} (${item.flavor}) x ${item.quantity} = ${item.price * item.quantity} บาท\n`;
+    });
+
+    // แปลงข้อความให้เหมาะกับ URL
+    let encodedMessage = encodeURIComponent(orderDetails);
+
+    // ลิงก์ไปแชทเพจ พร้อมแนบข้อความ
+    let fbLink = `https://m.me/61574576637333?ref=${encodedMessage}`;
+
+    // เปิดลิงก์
+    window.open(fbLink, "_blank");
+}
